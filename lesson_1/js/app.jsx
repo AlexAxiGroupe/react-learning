@@ -1,3 +1,12 @@
+var ImageCounter = function(props){
+	return(
+		<div>
+			<div className="count">{props.count}</div>
+			<img src={props.imageUrl} onClick={props.onCount}/>
+		</div>
+	);
+};
+
 var Hero = React.createClass({
 	getInitialState: function(){
 		return {
@@ -13,8 +22,7 @@ var Hero = React.createClass({
 	render: function(){
 		return (
 			<div className="container">
-				<div className="count">{this.state.count}</div>
-				<img src={this.props.imageUrl} onClick={this.handleClick}/>
+				<ImageCounter imageUrl={this.props.imageUrl} count={this.state.count} onCount={this.handleClick} />
 				<h1>{this.props.title}</h1>
 				<p>{this.props.subtitle}</p>
 			</div>
@@ -22,7 +30,36 @@ var Hero = React.createClass({
 	}
 });
 
-ReactDOM.render(<Hero 	title='Hello, React'
-						subtitle='my first react application'
-						imageUrl='img/logo.png'/>, 
-						document.getElementById('root'));
+var App =React.createClass({
+	render: function(){
+		return(
+			<div>
+				{this.props.heroes.map(function(hero){
+					return <Hero key={hero.id} title={hero.title} subtitle={hero.subtitle} imageUrl={hero.imageUrl} />
+				})}
+			</div>
+		);
+	}
+});
+
+var data = [
+	{
+		id : "1",
+		title : 'React',
+		subtitle: 'my first react application',
+		imageUrl: 'img/logo.png'
+	},
+	{
+		id : "2",
+		title : 'Hello, React',
+		subtitle: 'my first react application',
+		imageUrl: 'img/logo.png'
+	}
+];
+
+ReactDOM.render( <App heroes={data} />, document.getElementById('root'));
+
+
+
+
+
