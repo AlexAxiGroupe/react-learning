@@ -1,11 +1,28 @@
-function Hero(){
-	return(
-	<div className="container">
-		<img src="img/logo.png" alt=""/>
-		<h1>React</h1>
-		<p>My first React application</p>
-	</div>
-	);
-}
+var Hero = React.createClass({
+	getInitialState: function(){
+		return {
+			count: 0	
+		};
+	},
+	
+	handleClick: function(){
+		this.setState({
+			count : this.state.count + 1
+		});
+	},
+	render: function(){
+		return (
+			<div className="container">
+				<div className="count">{this.state.count}</div>
+				<img src={this.props.imageUrl} onClick={this.handleClick}/>
+				<h1>{this.props.title}</h1>
+				<p>{this.props.subtitle}</p>
+			</div>
+		);
+	}
+});
 
-ReactDOM.render(<Hero />, document.getElementById('root'));
+ReactDOM.render(<Hero 	title='Hello, React'
+						subtitle='my first react application'
+						imageUrl='img/logo.png'/>, 
+						document.getElementById('root'));
